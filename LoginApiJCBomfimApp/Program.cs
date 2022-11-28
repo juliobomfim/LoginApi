@@ -22,6 +22,9 @@ builder.Services.AddDbContext<SqliteDbContext>(opts =>
 
 builder.Services.AddMvcCore((opts) => { opts.EnableEndpointRouting = false; });
 
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
