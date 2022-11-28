@@ -9,6 +9,6 @@ namespace LoginApiJCBomfim.Domain.Contracts.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<List<User>> GetByUser(string user, CancellationToken ct = default);
+        Task<List<User>> GetByUserAsync(string user, CancellationToken ct = default);
     }
 }

@@ -8,7 +8,15 @@ namespace LoginApiJCBomfim.Domain.Entities
 {
     public class User : Entity
     {
-        protected User() : base() {}
+        public User(string username, string password, string name, Profile profile) :this ()
+        {
+            Username = username;
+            Password = password;
+            Name = name;
+            Profile = profile;
+        }
+
+        protected User() : base() { }
 
         public string Username { get; set; }
         public string Password { get; set; }

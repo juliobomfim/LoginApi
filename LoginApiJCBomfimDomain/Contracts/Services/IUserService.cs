@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LoginApiJCBomfim.Domain.Contracts.Services
 {
-    public interface ILoginService
+    public interface IUserService
     {
         Task<Response> LoginRegisterAsync(UserModel login, CancellationToken ct = default);
     }
