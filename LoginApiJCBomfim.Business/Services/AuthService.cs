@@ -46,5 +46,7 @@ namespace LoginApiJCBomfim.Business.Services
 
             return Response.Success($"Usuário logado com sucesso!");
         }
+
+        public async Task SignOutAsync() => await _httpContext.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 }

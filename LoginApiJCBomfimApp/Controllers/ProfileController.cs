@@ -2,12 +2,14 @@
 using LoginApiJCBomfim.Domain.Contracts.Repositories;
 using LoginApiJCBomfim.Domain.Contracts.Services;
 using LoginApiJCBomfim.Domain.Model.Input;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginApiJCBomfim.App.Controllers
 {
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class ProfileController : AbstractController
     {
         private readonly IProfileRepository _profileRepository;
