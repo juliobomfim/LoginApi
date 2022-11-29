@@ -2,12 +2,14 @@
 using LoginApiJCBomfim.Domain.Contracts.Repositories;
 using LoginApiJCBomfim.Domain.Contracts.Services;
 using LoginApiJCBomfim.Domain.Model.Input;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginApiJCBomfimApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class UserController : AbstractController
     {
         private readonly IUserRepository _userRepository;
@@ -18,6 +20,7 @@ namespace LoginApiJCBomfimApp.Controllers
             _userRepository = userRepository;
             _userService = userService;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string user, CancellationToken ct) => Ok(await _userRepository.GetByUserAsync(user, ct));
