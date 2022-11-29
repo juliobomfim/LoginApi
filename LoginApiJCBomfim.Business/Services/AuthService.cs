@@ -9,12 +9,12 @@ using System.Security.Claims;
 
 namespace LoginApiJCBomfim.Business.Services
 {
-    internal class AuthService : IAuthService
+    public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepository;
-        private readonly HttpContext _httpContext;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public AuthService(IUserRepository userRepository, HttpContext httpContext)
+        public AuthService(IUserRepository userRepository, IHttpContextAccessor httpContext)
         {
             _userRepository = userRepository;
             _httpContext = httpContext;
@@ -34,7 +34,7 @@ namespace LoginApiJCBomfim.Business.Services
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-            await AuthenticationHttpContextExtensions.SignInAsync(_httpContext, 
+            await AuthenticationHttpContextExtensions.SignInAsync(_httpContext.HttpContext, 
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(identity),
                 new AuthenticationProperties 
