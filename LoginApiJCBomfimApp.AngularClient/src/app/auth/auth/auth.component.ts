@@ -12,6 +12,7 @@ export class AuthComponent implements OnInit{
   loginForm!: FormGroup;
   authFailed: boolean = false;
   signedIn: boolean = false;
+  hide: boolean = true;
 
   constructor(private authService: AuthService,
     private formBuilder: FormBuilder,

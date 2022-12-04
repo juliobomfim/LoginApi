@@ -1,24 +1,29 @@
-<div class="d-flex flex-column align-items-center justify-content-center" *ngIf="!signedIn else signedInAlready">
-  <div>Autentique para continuar!</div>
-  <form class="form w-50" [formGroup]="loginForm" (submit)="signIn($event)">
-      <div class="row m-3">
-          <label for="name">Username*</label>
-          <input class="col form-field" name="username" formControlName="username" />
-      </div>
-      <div class="row m-3">
-          <label for="password">Password*</label>
-          <input class="col form-field" type="password" name="password" formControlName="password" autocomplete="on" />
-      </div>
-      <div class="row m-3" *ngIf="authFailed">
-          <label style="color: red">Usuário ou senha inválidos!</label>
-      </div>
-      <div class="row m-3">
-          <button class="col btn btn-primary" [disabled]="!loginForm.valid" type="submit">Login</button>
-      </div>
-  </form>
-  <div class="alert-info p-2">
-  </div>
-</div>
+<mat-card-content class="container">
+  <mat-card class="card-login">
+    <mat-card-title>Login</mat-card-title>
+    <form [formGroup]="loginForm" novalidate>
+      <mat-card-content class="conteudo-login">
+        <mat-form-field appearance="outline">
+          <mat-label>Usuário</mat-label>
+          <input type="text" matInput formControlName="username">
+          <mat-error *ngIf="loginForm.get('username')?.hasError('username') && loginForm.get('username')?.touched">
+            Usuário é <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input type="password" matInput formControlName="password">
+          <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Senha é
+            <strong>obrigatória</strong>
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+    </form>
+    <mat-card-actions align="end">
+      <button mat-button color="primary" class="full" align="end" (click)="signIn($event)">Entrar</button>
+    </mat-card-actions>
+  </mat-card>
+</mat-card-content>
 <ng-template #signedInAlready>
   <h4>Loggout</h4>
   <div>

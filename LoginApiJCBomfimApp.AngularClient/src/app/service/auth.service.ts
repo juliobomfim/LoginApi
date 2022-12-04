@@ -10,19 +10,19 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public signIn(username: string, password: string){
-    return this.http.post<Response>('api/v1/Auth/signin', {
-      username: username,
+  public signIn(userName: string, password: string){
+    return this.http.post<Response>('https://localhost:7256/api/v1/Auth/signin', {
+      userName: userName,
       password: password
     });
   }
 
   public signOut(){
-    return this.http.get('api/v1/Auth/signout');
+    return this.http.get('https://localhost:7256/api/v1/Auth/signout');
   }
 
   public getUser(){
-    return this.http.get<UserClaim[]>('api/v1/user');
+    return this.http.get<UserClaim[]>('https://localhost:7256/api/v1/user');
   }
 
   public isSignedIn(): Observable<boolean> {
