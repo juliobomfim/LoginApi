@@ -46,6 +46,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddCors((e) =>
                 e.AddPolicy("Dev", op => op
+                .AllowAnyHeader()
                 .AllowAnyOrigin()
                 .AllowAnyMethod()));
 
