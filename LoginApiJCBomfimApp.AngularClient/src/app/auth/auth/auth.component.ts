@@ -43,12 +43,12 @@ export class AuthComponent implements OnInit{
     this.authService.signIn(userName, password).subscribe(
       {
         next: (response) => {
-          if (response.ok){
+          if (response.IsSuccess){
             this.router.navigateByUrl('user')
           }
         },
-        error: (error) => {
-          if (!error?.error?.IsSuccess){
+        error: ({error}) => {
+          if (error?.IsSuccess){
             this.authFailed = true;
           }
         }
