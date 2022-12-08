@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { catchError, Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -14,14 +14,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private router: Router) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
-      catchError((error) => {
+      tap(() => {}, (error) => {
         if (error instanceof HttpErrorResponse) {
           if (error.status !== 401){
             throw error;
           }
-          this.router.navigate(['signin']);
+          this.router.navigate(['/auth']);
         }
         throw error;
       })

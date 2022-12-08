@@ -12,12 +12,19 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './auth/auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserComponent } from './auth/user/user.component';
+import { SignoutComponent } from './auth/signout/signout.component';
+import { Router } from '@angular/router';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthGuard } from './guard/auth.guard';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
+    AuthComponent,
+    UserComponent,
+    SignoutComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +36,19 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatIconModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useFactory: function (router: Router){
+      return new AuthInterceptor(router);
+    },
+    multi: true,
+    deps: [Router]
+  },
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

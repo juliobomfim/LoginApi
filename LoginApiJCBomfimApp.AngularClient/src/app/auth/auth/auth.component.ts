@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Type } from 'src/app/model/auth';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
@@ -43,7 +44,7 @@ export class AuthComponent implements OnInit{
     this.authService.signIn(userName, password).subscribe(
       {
         next: (response) => {
-          if (response.IsSuccess){
+          if (response.type === Type.Success){
             this.router.navigateByUrl('user')
           }
         },

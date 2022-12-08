@@ -4,6 +4,12 @@ export interface UserClaim {
 }
 
 export interface Response {
-  IsSuccess: boolean;
+  type: Type;
   message: string;
+}
+
+export enum Type {
+  Success,
+  Failure,
+  Warning
 }
