@@ -45,7 +45,7 @@ export class AuthComponent implements OnInit{
       {
         next: (response) => {
           if (response.type === Type.Success){
-            this.router.navigateByUrl('user')
+            this.router.navigate(['user'])
           }
         },
         error: ({error}) => {

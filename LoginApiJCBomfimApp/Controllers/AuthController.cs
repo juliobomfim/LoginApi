@@ -20,6 +20,9 @@ namespace LoginApiJCBomfim.App.Controllers
         [HttpGet("signout")]
         public async Task Get() => await _authService.SignOutAsync();
 
+        [HttpGet("userAuth")]
+        public async Task<IActionResult> Check() => Ok(await _authService.CheckUserAuth());
+
         [HttpPost("signin")]
         public async Task<IActionResult> Post([FromBody] AuthModel model, CancellationToken ct) => await ExecuteAsync(_authService.SignInAsync(model, ct), ct);
 

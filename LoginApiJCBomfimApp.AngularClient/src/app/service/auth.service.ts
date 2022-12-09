@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   public getUser(){
-    return this.http.get<UserClaim[]>('https://localhost:7256/api/v1/user');
+    return this.http.get<UserClaim[]>('https://localhost:7256/api/v1/Auth/userAuth');
   }
 
   public isSignedIn(): Observable<boolean> {

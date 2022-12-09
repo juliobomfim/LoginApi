@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using static LoginApiJCBomfim.Domain.Model.Input.AuthModel;
 
 namespace LoginApiJCBomfim.Business.Services
 {
@@ -41,10 +42,23 @@ namespace LoginApiJCBomfim.Business.Services
                 { 
                     IsPersistent = true, 
                     AllowRefresh = true, 
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10) 
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(20) 
                 });
 
             return Response.Success($"Usuário logado com sucesso!");
+        }
+
+        public async Task<Response> CheckUserAuth()
+        {
+            var user = _httpContext.HttpContext.User;
+
+            if (!user.Identity.IsAuthenticated)
+            {
+                return Response.Failure("Usuário não autenticado.");
+            }
+            var userClaims = user.Claims.Select(x => new UserClaim(x.Type, x.Value)).ToList();
+            return Response.Success("", userClaims);
+
         }
 
         public async Task SignOutAsync() => await _httpContext.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

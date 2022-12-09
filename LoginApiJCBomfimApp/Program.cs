@@ -6,6 +6,7 @@ using LoginApiJCBomfim.Infra.Contexts;
 using LoginApiJCBomfim.Infra.Repository;
 using LoginApiJCBomfim.Infra.Uow;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,16 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
             context.Response.StatusCode = 401;
             return Task.CompletedTask;
         };
+        opts.Cookie.HttpOnly = true;
+        opts.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        opts.Cookie.SameSite = SameSiteMode.Lax;
     });
+
+builder.Services.AddAuthentication(opts => 
+{
+    opts.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    opts.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+});
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -62,6 +72,8 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
     app.UseCors("Dev");
 }
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 

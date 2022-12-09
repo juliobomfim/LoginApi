@@ -3,6 +3,7 @@ using LoginApiJCBomfim.Domain.Contracts.Services;
 using LoginApiJCBomfim.Domain.Entities;
 using LoginApiJCBomfim.Domain.Model.Input;
 using LoginApiJCBomfim.Domain.Model.Output;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;

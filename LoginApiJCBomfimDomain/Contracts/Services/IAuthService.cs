@@ -7,5 +7,6 @@ namespace LoginApiJCBomfim.Domain.Contracts.Services
     {
         Task<Response> SignInAsync(AuthModel model, CancellationToken ct = default);
         Task SignOutAsync();
+        Task<Response> CheckUserAuth();
     }
 }
